@@ -13,12 +13,12 @@ script = ExtResource("1_oslfm")
 
 [node name="TankCharacterBody" type="CharacterBody2D" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="TankCharacterBody"]
-texture = ExtResource("1_18x5t")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TankCharacterBody"]
 position = Vector2(-3, 0)
 shape = SubResource("RectangleShape2D_7e2q4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_18x5t")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 offset_left = -32.0
@@ -29,3 +29,6 @@ theme = ExtResource("3_144di")
 value = 50.0
 show_percentage = false
 metadata/_edit_group_ = true
+
+[node name="ImpactPosition" type="Node2D" parent="."]
+position = Vector2(-15, -15)

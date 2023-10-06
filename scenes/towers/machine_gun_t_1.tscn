@@ -1,10 +1,33 @@
-[gd_scene load_steps=5 format=3 uid="uid://by27c2degoup4"]
+[gd_scene load_steps=8 format=3 uid="uid://by27c2degoup4"]
 
 [ext_resource type="Script" path="res://scenes/towers/machine_gun_t_1.gd" id="1_rk4bg"]
 [ext_resource type="Texture2D" uid="uid://bptoe8smwdnb4" path="res://assets/towers/towerDefense_tile181.png" id="2_2drcu"]
 [ext_resource type="Texture2D" uid="uid://b03f02dau8pcj" path="res://assets/towers/towerDefense_tile249.png" id="3_mmy61"]
+[ext_resource type="Texture2D" uid="uid://b1emn41lpsctb" path="res://assets/effects/towerDefense_tile297.png" id="4_b8anj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3hhu0"]
+
+[sub_resource type="Animation" id="Animation_7r7fy"]
+resource_name = "fire"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HeadSprite/MuzzleMarker/MuzzleFlash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iiaiu"]
+_data = {
+"fire": SubResource("Animation_7r7fy")
+}
 
 [node name="MachineGunT1" type="Node2D"]
 script = ExtResource("1_rk4bg")
@@ -19,10 +42,21 @@ offset = Vector2(9, 0)
 [node name="MuzzleMarker" type="Marker2D" parent="HeadSprite"]
 position = Vector2(40, 0)
 
+[node name="MuzzleFlash" type="Sprite2D" parent="HeadSprite/MuzzleMarker"]
+visible = false
+position = Vector2(11, 0)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_b8anj")
+
 [node name="RangeArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RangeArea"]
 shape = SubResource("CircleShape2D_3hhu0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_iiaiu")
+}
 
 [connection signal="body_entered" from="RangeArea" to="." method="_on_range_area_body_entered"]
 [connection signal="body_exited" from="RangeArea" to="." method="_on_range_area_body_exited"]

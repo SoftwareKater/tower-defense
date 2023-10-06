@@ -7,6 +7,7 @@ var target_acquisition_mode = "MAX_PROGRESS" # "FIRST"
 var constructed = false
 var tower_type
 var ready_to_fire = true
+var animation_category
 
 func _ready():
 	if constructed:
@@ -16,7 +17,8 @@ func _ready():
 func _physics_process(delta):
 	if possible_targets.size() != 0 and constructed:
 		acquire_target()
-		turn()
+		if not get_node("AnimationPlayer").is_playing():
+			turn()
 		if ready_to_fire:
 			fire()
 	else:
@@ -49,6 +51,16 @@ func _on_range_area_body_exited(body):
 
 func fire():
 	ready_to_fire = false
+	if animation_category == "projectile":
+		fire_projectile()
+	elif animation_category == "missile":
+		fire_missile()
 	target.on_hit(GameData.tower_data[tower_type]["damage"])
 	await get_tree().create_timer(GameData.tower_data[tower_type]["rate_of_fire"]).timeout
 	ready_to_fire = true
+
+func fire_projectile():
+	get_node("AnimationPlayer").play("fire")
+	
+func fire_missile():
+	pass

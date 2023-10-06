@@ -95,6 +95,7 @@ func verify_and_construct():
 		new_tower.set_position(construction_location)
 		new_tower.constructed = true
 		new_tower.tower_type = construction_type
+		new_tower.animation_category = GameData.tower_data[construction_type]["animation_category"]
 		map_node.get_node("TowerContainer").add_child(new_tower, true)
 		# fill the tile with an invisible structure, to prevent construction of
 		# another tower on top of it
