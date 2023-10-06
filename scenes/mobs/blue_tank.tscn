@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://ngql34k8fmae"]
+
+[ext_resource type="Texture2D" uid="uid://ralno04pem3v" path="res://assets/mobs/tank_blue.png" id="1_18x5t"]
+[ext_resource type="Script" path="res://scenes/mobs/blue_tank.gd" id="1_oslfm"]
+[ext_resource type="Theme" uid="uid://dileywtn606no" path="res://resources/themes/health_bar_theme.tres" id="3_144di"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7e2q4"]
+size = Vector2(36, 28)
+
+[node name="BlueTank" type="PathFollow2D"]
+loop = false
+script = ExtResource("1_oslfm")
+
+[node name="TankCharacterBody" type="CharacterBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="TankCharacterBody"]
+texture = ExtResource("1_18x5t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TankCharacterBody"]
+position = Vector2(-3, 0)
+shape = SubResource("RectangleShape2D_7e2q4")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = -24.0
+theme = ExtResource("3_144di")
+value = 50.0
+show_percentage = false
+metadata/_edit_group_ = true
