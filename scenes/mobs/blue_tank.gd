@@ -1,9 +1,11 @@
 extends PathFollow2D
 
 signal reached_end(damage)
-var damage_when_reaching_end = 21
-var speed = 150
-var hit_points = 150
+signal destroyed(reward_for_destruction)
+var damage_when_reaching_end = GameData.mob_data["blue_tank"]["damage"]
+var speed = GameData.mob_data["blue_tank"]["speed"]
+var hit_points = GameData.mob_data["blue_tank"]["hp"]
+var reward_for_destruction = GameData.mob_data["blue_tank"]["reward"]
 
 @onready var health_bar = get_node("HealthBar")
 @onready var ui_node = get_node("/root/SceneHandler/GameScene/UI")
@@ -49,6 +51,7 @@ func impact():
 func on_destroy():
 	get_node("TankCharacterBody").queue_free()
 	await get_tree().create_timer(0.2).timeout
+	emit_signal("destroyed", reward_for_destruction)
 	self.queue_free()
 
 	

@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 @onready var player_health_bar = get_node("HUD/InfoContainer/HBoxContainer/PlayerHealthBar")
+@onready var player_money_label = get_node("HUD/InfoContainer/HBoxContainer/MoneyLabel")
 
 var health_bars_visible = false
 
@@ -34,6 +35,9 @@ func update_tower_preview(new_pos, color):
 
 func update_player_health_bar(player_health):
 	player_health_bar.value = player_health
+
+func update_player_money_label(player_money):
+	player_money_label.text = str(player_money)
 
 ##
 ## Game Control
