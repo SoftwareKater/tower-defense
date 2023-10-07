@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://buu02l3ni6v1l"]
+
+[ext_resource type="Script" path="res://scenes/mobs/red_tank.gd" id="1_1j0wf"]
+[ext_resource type="Texture2D" uid="uid://b5ms6vbmvrp2t" path="res://assets/mobs/tank_red.png" id="1_bijf6"]
+[ext_resource type="Theme" uid="uid://dileywtn606no" path="res://resources/themes/health_bar_theme.tres" id="2_a7chd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ml80t"]
+size = Vector2(36, 28)
+
+[node name="RedTank" type="PathFollow2D"]
+script = ExtResource("1_1j0wf")
+
+[node name="TankCharacterBody" type="CharacterBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TankCharacterBody"]
+position = Vector2(-3, 0)
+shape = SubResource("RectangleShape2D_ml80t")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_bijf6")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = -24.0
+theme = ExtResource("2_a7chd")
+value = 50.0
+show_percentage = false
+metadata/_edit_group_ = true
+
+[node name="ImpactPosition" type="Node2D" parent="."]
+position = Vector2(-15, -15)

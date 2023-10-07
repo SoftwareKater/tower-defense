@@ -1,6 +1,5 @@
 extends Node
 
-
 var player_init_health = 100
 
 var player_init_money = 100
@@ -59,7 +58,7 @@ var mob_data = {
 	"red_tank": {
 		"damage": 5,
 		"reward": 20,
-		"speed": 150,
+		"speed": 140,
 		"hp": 200,
 	},
 }
@@ -67,35 +66,30 @@ var mob_data = {
 var wave_data = {
 	"Map1": [
 		[
-			["blue_tank", 0],
+			["blue_tank", 3],
 		],
 		[
 			["blue_tank", 3],
-			["blue_tank", 0],
-		],
-		[
-			["blue_tank", 2],
-			["blue_tank", 2],
-			["blue_tank", 2],
-			["blue_tank", 0],
+			["blue_tank", 3],
 		],
 		[
 			["blue_tank", 2],
 			["blue_tank", 2],
 			["blue_tank", 2],
 			["blue_tank", 2],
-			["blue_tank", 2],
-			["blue_tank", 2],
-			["blue_tank", 2],
-			["blue_tank", 0],
 		],
 		[
-			["blue_tank", 1.5],
-			["blue_tank", 1.5],
-			["blue_tank", 1.5],
-			["blue_tank", 1.5],
-			["blue_tank", 1.5],
-			["blue_tank", 0],
+			["blue_tank", 2],
+			["blue_tank", 2],
+			["blue_tank", 2],
+			["blue_tank", 2],
+			["blue_tank", 2],
+			["blue_tank", 2],
+			["blue_tank", 2],
+			["blue_tank", 2],
+		],
+		[
+			["red_tank", 0.8],
 		],
 		[
 			["blue_tank", 1.5],
@@ -104,11 +98,20 @@ var wave_data = {
 			["blue_tank", 1.5],
 			["blue_tank", 1.5],
 			["blue_tank", 1.5],
+		],
+		[
 			["blue_tank", 1.5],
 			["blue_tank", 1.5],
 			["blue_tank", 1.5],
 			["blue_tank", 1.5],
-			["blue_tank", 0],
+			["blue_tank", 1.5],
+			["blue_tank", 1.5],
+			["blue_tank", 1.5],
+			["blue_tank", 1.5],
+			["blue_tank", 1.5],
+			["blue_tank", 1.5],
+			["blue_tank", 1.5],
+			["blue_tank", 1.5],
 		],
 		[
 			["blue_tank", 0.8],
@@ -124,19 +127,6 @@ var wave_data = {
 			["blue_tank", 0.8],
 			["blue_tank", 0.8],
 			["blue_tank", 0.8],
-			["blue_tank", 0],
-		],
-		[
-			["blue_tank", 0.6],
-			["blue_tank", 0.6],
-			["blue_tank", 0.6],
-			["blue_tank", 0.6],
-			["blue_tank", 0.6],
-			["blue_tank", 0.6],
-			["blue_tank", 0.6],
-			["blue_tank", 0.6],
-			["blue_tank", 0.6],
-			["blue_tank", 0],
 		],
 		[
 			["blue_tank", 0.6],
@@ -148,10 +138,36 @@ var wave_data = {
 			["blue_tank", 0.6],
 			["blue_tank", 0.6],
 			["blue_tank", 0.6],
-			["blue_tank", 0],
+			["blue_tank", 0.6],
 		],
 		[
-			["blue_tank", 0], # boss round
+			["red_tank", 4],
+			["red_tank", 4],
+			["red_tank", 4],
+		],
+		[
+			["blue_tank", 0.6],
+			["blue_tank", 0.6],
+			["blue_tank", 0.6],
+			["blue_tank", 0.6],
+			["blue_tank", 2],
+			["red_tank", 2],
+			["red_tank", 0.6],
+			["blue_tank", 0.6],
+			["blue_tank", 0.6],
+			["blue_tank", 0.6],
+			["blue_tank", 0.6],
+			["blue_tank", 0.6],
+		],
+		[
+			["red_tank", 0.7],
+			["blue_tank", 2],
+			["red_tank", 0.7],
+			["blue_tank", 2],
+			["red_tank", 0.7],
+			["blue_tank", 2],
+			["red_tank", 0.7],
+			["blue_tank", 2],
 		],
 		[
 			["blue_tank", 0.2],

@@ -134,20 +134,17 @@ func verify_and_construct():
 
 func start_next_wave():
 	current_wave += 1
-	var wave_data = retrieve_wave_data()
+	var wave_data = GameData.wave_data[current_map][current_wave - 1] # array index starts at 0
 	remaining_mobs = len(wave_data)
 	get_node("UI").update_wave_counter(current_wave)
 	get_node("UI").update_remaining_mobs(remaining_mobs)	
 	await get_tree().create_timer(2).timeout  ## padding between waves
 	spawn_mobs(wave_data)
-	
-func retrieve_wave_data():
-	var wave_data = GameData.wave_data[current_map][current_wave - 1] # array index starts at 0
-	return wave_data
 
 func spawn_mobs(wave_data):
 	for i in wave_data:
 		var new_mob = load("res://scenes/mobs/" + i[0] + ".tscn").instantiate()
+		new_mob.mob_type = i[0]
 		new_mob.connect("reached_end", on_mob_reached_end)
 		new_mob.connect("destroyed", on_mob_destroyed)
 		map_node.get_node("Path").add_child(new_mob, true)
