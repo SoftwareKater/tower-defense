@@ -44,7 +44,8 @@ func turn():
 ##
 
 func _on_range_area_body_entered(body):
-	possible_targets.append(body.get_parent())
+	if not "Projectile" in body.get_name():
+		possible_targets.append(body.get_parent())
 
 func _on_range_area_body_exited(body):
 	possible_targets.erase(body.get_parent())
@@ -53,9 +54,9 @@ func fire():
 	ready_to_fire = false
 	if animation_category == "projectile":
 		fire_projectile()
+		target.on_hit(GameData.tower_data[tower_type]["damage"])
 	elif animation_category == "missile":
 		fire_missile()
-	target.on_hit(GameData.tower_data[tower_type]["damage"])
 	await get_tree().create_timer(GameData.tower_data[tower_type]["rate_of_fire"]).timeout
 	ready_to_fire = true
 
@@ -63,4 +64,10 @@ func fire_projectile():
 	get_node("AnimationPlayer").play("fire")
 	
 func fire_missile():
-	pass
+	get_node("AnimationPlayer").play("fire")
+	var missile_projectile = load("res://scenes/towers/missile_t_1_projectile.tscn").instantiate()
+	missile_projectile.target = target
+	missile_projectile.start_position = get_node("HeadSprite/Missile1Sprite").get_position()
+	self.get_node("ProjectileContainer").add_child(missile_projectile, true)
+	await get_tree().create_timer(GameData.tower_data[tower_type]["reload_time"]).timeout
+	get_node("AnimationPlayer").play("reload")

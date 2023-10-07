@@ -1,10 +1,81 @@
-[gd_scene load_steps=5 format=3 uid="uid://cu2ovyjuqvvac"]
+[gd_scene load_steps=10 format=3 uid="uid://cu2ovyjuqvvac"]
 
 [ext_resource type="Script" path="res://scenes/towers/machine_gun_t_2.gd" id="1_050bq"]
 [ext_resource type="Texture2D" uid="uid://bptoe8smwdnb4" path="res://assets/towers/towerDefense_tile181.png" id="1_tqr1i"]
 [ext_resource type="Texture2D" uid="uid://d5mlmstxm6s5" path="res://assets/towers/towerDefense_tile250.png" id="2_nvbgb"]
+[ext_resource type="Texture2D" uid="uid://b1emn41lpsctb" path="res://assets/effects/towerDefense_tile297.png" id="4_0gr0f"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3hhu0"]
+
+[sub_resource type="Animation" id="Animation_u5ye5"]
+resource_name = "fire_r"
+length = 0.1
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HeadSprite/MuzzleBarrel1Marker/MuzzleFlash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.025),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_fikl6"]
+resource_name = "fire_l"
+length = 0.1
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HeadSprite/MuzzleBarrel2Marker/MuzzleFlash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.025),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_gk8d7"]
+resource_name = "fire"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HeadSprite/MuzzleBarrel2Marker/MuzzleFlash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HeadSprite/MuzzleBarrel1Marker/MuzzleFlash:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_75443"]
+_data = {
+"fire": SubResource("Animation_gk8d7"),
+"fire_l": SubResource("Animation_fikl6"),
+"fire_r": SubResource("Animation_u5ye5")
+}
 
 [node name="MachineGunT2" type="Node2D"]
 script = ExtResource("1_050bq")
@@ -17,15 +88,31 @@ texture = ExtResource("2_nvbgb")
 offset = Vector2(9, 0)
 
 [node name="MuzzleBarrel1Marker" type="Marker2D" parent="HeadSprite"]
-position = Vector2(40, 6)
+position = Vector2(38, 6)
+
+[node name="MuzzleFlash" type="Sprite2D" parent="HeadSprite/MuzzleBarrel1Marker"]
+visible = false
+position = Vector2(11, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_0gr0f")
 
 [node name="MuzzleBarrel2Marker" type="Marker2D" parent="HeadSprite"]
-position = Vector2(40, -6)
+position = Vector2(38, -6)
+
+[node name="MuzzleFlash" type="Sprite2D" parent="HeadSprite/MuzzleBarrel2Marker"]
+position = Vector2(11, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_0gr0f")
 
 [node name="RangeArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RangeArea"]
 shape = SubResource("CircleShape2D_3hhu0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_75443")
+}
 
 [connection signal="body_entered" from="RangeArea" to="." method="_on_range_area_body_entered"]
 [connection signal="body_exited" from="RangeArea" to="." method="_on_range_area_body_exited"]

@@ -5,6 +5,10 @@ var current_map = "Map1"
 # the current map
 var map_node: Node
 
+signal game_over(result)
+
+var player_health = 100
+
 ##
 ## Construction
 ##
@@ -115,7 +119,7 @@ func start_next_wave():
 	spawn_mobs(wave_data)
 	
 func retrieve_wave_data():
-	var wave_data = [["blue_tank", 3], ["blue_tank", 2], ["blue_tank", 1], ["blue_tank", 1]]
+	var wave_data = [["blue_tank", 3], ["blue_tank", 2], ["blue_tank", 1], ["blue_tank", 1], ["blue_tank", 1], ["blue_tank", 1], ["blue_tank", 1], ["blue_tank", 1], ["blue_tank", 1]]
 	current_wave += 1
 	mobs_in_wave = len(wave_data)
 	return wave_data
@@ -123,5 +127,14 @@ func retrieve_wave_data():
 func spawn_mobs(wave_data):
 	for i in wave_data:
 		var new_mob = load("res://scenes/mobs/" + i[0] + ".tscn").instantiate()
+		new_mob.connect("reached_end", on_mob_reached_end) #.bind(new_mob.damage_when_reaching_end)
 		map_node.get_node("Path").add_child(new_mob, true)
 		await get_tree().create_timer(i[1]).timeout
+
+func on_mob_reached_end(damage):
+	player_health -= damage
+	print(player_health)
+	if player_health <= 0:
+		emit_signal("game_over", false)
+	else:
+		get_node("UI").update_player_health_bar(player_health)

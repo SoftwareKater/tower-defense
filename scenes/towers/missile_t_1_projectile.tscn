@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://yub7lg8rcfge"]
+
+[ext_resource type="Script" path="res://scenes/towers/missile_t_1_projectile.gd" id="1_e0swj"]
+[ext_resource type="Texture2D" uid="uid://ckxxmst4kloco" path="res://assets/towers/towerDefense_tile251.png" id="1_rfjl8"]
+[ext_resource type="Texture2D" uid="uid://b1emn41lpsctb" path="res://assets/effects/towerDefense_tile297.png" id="2_4xx8g"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4q7wx"]
+radius = 4.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jcj0l"]
+radius = 6.0
+height = 34.0
+
+[node name="MissileT1Projectile" type="CharacterBody2D"]
+script = ExtResource("1_e0swj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_4q7wx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_rfjl8")
+
+[node name="EngineFlamesMarker" type="Marker2D" parent="Sprite2D"]
+
+[node name="Flame" type="Sprite2D" parent="Sprite2D/EngineFlamesMarker"]
+position = Vector2(-32, 0)
+rotation = 3.14159
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_4xx8g")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_jcj0l")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

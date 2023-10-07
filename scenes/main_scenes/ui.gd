@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+@onready var player_health_bar = get_node("HUD/InfoContainer/HBoxContainer/PlayerHealthBar")
 
 var health_bars_visible = false
 
@@ -30,6 +31,9 @@ func update_tower_preview(new_pos, color):
 		get_node("TowerPreview/DragTower").modulate = Color(color)
 		get_node(("TowerPreview/TowerRangeOverlay")).modulate = Color(color)
 
+
+func update_player_health_bar(player_health):
+	player_health_bar.value = player_health
 
 ##
 ## Game Control

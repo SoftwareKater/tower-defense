@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://copffu8i51p7h"]
+[gd_scene load_steps=16 format=3 uid="uid://copffu8i51p7h"]
 
 [ext_resource type="PackedScene" uid="uid://bcma8ty36dfkp" path="res://scenes/maps/map_1.tscn" id="1_8v8s5"]
 [ext_resource type="Script" path="res://scenes/main_scenes/game_scene.gd" id="1_s2vi8"]
@@ -10,6 +10,16 @@
 [ext_resource type="Texture2D" uid="uid://c2cge5hiij8fi" path="res://assets/ui/icons/right.png" id="8_hvvf3"]
 [ext_resource type="Texture2D" uid="uid://be8gvui5k0vsf" path="res://assets/ui/icons/pause.png" id="9_e3gxg"]
 [ext_resource type="Texture2D" uid="uid://b3rl5hsfhjkd8" path="res://assets/ui/icons/fastForward.png" id="10_exlsc"]
+[ext_resource type="Theme" uid="uid://c4enhplx1asm0" path="res://resources/themes/font_theme.tres" id="11_7dlhr"]
+[ext_resource type="Texture2D" uid="uid://bfu4mfpafyxe5" path="res://assets/ui/icons/home.png" id="12_v2g6g"]
+[ext_resource type="Texture2D" uid="uid://cv1uos1yryohe" path="res://assets/ui/health_bar_texture.png" id="13_ottpg"]
+
+[sub_resource type="Gradient" id="Gradient_ik1mj"]
+offsets = PackedFloat32Array(0.222973, 1)
+colors = PackedColorArray(0.429619, 7.70092e-07, 3.60981e-07, 1, 0, 0.968627, 0.247059, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4b0bd"]
+gradient = SubResource("Gradient_ik1mj")
 
 [node name="GameScene" type="Node2D"]
 script = ExtResource("1_s2vi8")
@@ -113,6 +123,63 @@ layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 texture_normal = ExtResource("10_exlsc")
+
+[node name="InfoContainer" type="ColorRect" parent="UI/HUD"]
+self_modulate = Color(0, 0, 0, 0.470588)
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/InfoContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpacerStart" type="Control" parent="UI/HUD/InfoContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="DollarSign" type="Label" parent="UI/HUD/InfoContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+theme = ExtResource("11_7dlhr")
+theme_override_font_sizes/font_size = 50
+text = "$"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="MoneyLabel" type="Label" parent="UI/HUD/InfoContainer/HBoxContainer"]
+custom_minimum_size = Vector2(110, 64)
+layout_mode = 2
+theme = ExtResource("11_7dlhr")
+theme_override_font_sizes/font_size = 30
+text = "99999"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI/HUD/InfoContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 10
+texture = ExtResource("12_v2g6g")
+
+[node name="PlayerHealthBar" type="TextureProgressBar" parent="UI/HUD/InfoContainer/HBoxContainer"]
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+size_flags_vertical = 4
+value = 100.0
+nine_patch_stretch = true
+texture_under = ExtResource("13_ottpg")
+texture_progress = SubResource("GradientTexture1D_4b0bd")
+
+[node name="SpacerEnd" type="Control" parent="UI/HUD/InfoContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
 
 [connection signal="pressed" from="UI/HUD/GameControlsContainer/PlayPauseButton" to="UI" method="_on_play_pause_button_pressed"]
 [connection signal="pressed" from="UI/HUD/GameControlsContainer/FastForwardButton" to="UI" method="_on_fast_forward_button_pressed"]

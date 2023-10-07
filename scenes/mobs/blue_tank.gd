@@ -1,5 +1,7 @@
 extends PathFollow2D
 
+signal reached_end(damage)
+var damage_when_reaching_end = 21
 var speed = 150
 var hit_points = 150
 
@@ -18,6 +20,9 @@ func _process(delte):
 	health_bar.visible = ui_node.health_bars_visible
 
 func _physics_process(delta):
+	if get_progress_ratio() == 1.0:
+		emit_signal("reached_end", damage_when_reaching_end)
+		queue_free()
 	move(delta)
 	
 func move(delta):

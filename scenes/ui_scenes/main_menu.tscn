@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dprt7f2l7yuis" path="res://assets/ui/art/main_menu_background.png" id="1_gpedp"]
 [ext_resource type="Texture2D" uid="uid://j0m72gptbykn" path="res://assets/ui/buttons/blue_button03.png" id="2_wq1du"]
 [ext_resource type="Texture2D" uid="uid://8drsxlvwh1sc" path="res://assets/ui/buttons/blue_button05.png" id="3_bfhhp"]
-[ext_resource type="FontFile" uid="uid://cfb0rys3cpcui" path="res://assets/fonts/Kenney Future Narrow.ttf" id="4_d3k7y"]
+[ext_resource type="Theme" uid="uid://c4enhplx1asm0" path="res://resources/themes/font_theme.tres" id="4_eexxa"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -55,8 +55,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("4_d3k7y")
-theme_override_font_sizes/font_size = 64
+theme = ExtResource("4_eexxa")
 text = "New Game"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -76,8 +75,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("4_d3k7y")
-theme_override_font_sizes/font_size = 64
+theme = ExtResource("4_eexxa")
 text = "Settings"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -97,8 +95,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("4_d3k7y")
-theme_override_font_sizes/font_size = 64
+theme = ExtResource("4_eexxa")
 text = "About"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -122,8 +119,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("4_d3k7y")
-theme_override_font_sizes/font_size = 64
+theme = ExtResource("4_eexxa")
 text = "Quit"
 horizontal_alignment = 1
 vertical_alignment = 1
