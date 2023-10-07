@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://copffu8i51p7h"]
+[gd_scene load_steps=17 format=3 uid="uid://copffu8i51p7h"]
 
 [ext_resource type="PackedScene" uid="uid://bcma8ty36dfkp" path="res://scenes/maps/map_1.tscn" id="1_8v8s5"]
 [ext_resource type="Script" path="res://scenes/main_scenes/game_scene.gd" id="1_s2vi8"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://d5mlmstxm6s5" path="res://assets/towers/towerDefense_tile250.png" id="4_r4wgg"]
 [ext_resource type="Texture2D" uid="uid://ckxxmst4kloco" path="res://assets/towers/towerDefense_tile251.png" id="7_b4mq5"]
 [ext_resource type="Texture2D" uid="uid://c2cge5hiij8fi" path="res://assets/ui/icons/right.png" id="8_hvvf3"]
+[ext_resource type="Texture2D" uid="uid://dfm5ugshid624" path="res://assets/towers/towerDefense_tile292.png" id="8_vwxng"]
 [ext_resource type="Texture2D" uid="uid://be8gvui5k0vsf" path="res://assets/ui/icons/pause.png" id="9_e3gxg"]
 [ext_resource type="Texture2D" uid="uid://b3rl5hsfhjkd8" path="res://assets/ui/icons/fastForward.png" id="10_exlsc"]
 [ext_resource type="Theme" uid="uid://c4enhplx1asm0" path="res://resources/themes/font_theme.tres" id="11_7dlhr"]
@@ -95,6 +96,21 @@ offset_right = 68.0
 offset_bottom = 68.0
 texture = ExtResource("7_b4mq5")
 
+[node name="CannonT1Button" type="TextureButton" parent="UI/HUD/TowerShopContainer" groups=["ShopButton"]]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("2_ixghg")
+stretch_mode = 0
+
+[node name="TowerIcon" type="TextureRect" parent="UI/HUD/TowerShopContainer/CannonT1Button"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 68.0
+offset_bottom = 68.0
+texture = ExtResource("8_vwxng")
+
 [node name="GameControlsContainer" type="HBoxContainer" parent="UI/HUD"]
 layout_mode = 1
 anchors_preset = 3
@@ -160,6 +176,29 @@ theme = ExtResource("11_7dlhr")
 theme_override_font_sizes/font_size = 30
 text = "99999"
 horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SpacerMid1" type="Control" parent="UI/HUD/InfoContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="WaveInfo" type="VBoxContainer" parent="UI/HUD/InfoContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="WaveCounter" type="Label" parent="UI/HUD/InfoContainer/HBoxContainer/WaveInfo"]
+custom_minimum_size = Vector2(110, 32)
+layout_mode = 2
+theme = ExtResource("11_7dlhr")
+theme_override_font_sizes/font_size = 20
+text = "Current Wave:"
+vertical_alignment = 1
+
+[node name="RemainingMobs" type="Label" parent="UI/HUD/InfoContainer/HBoxContainer/WaveInfo"]
+custom_minimum_size = Vector2(110, 32)
+layout_mode = 2
+theme = ExtResource("11_7dlhr")
+theme_override_font_sizes/font_size = 20
+text = "Mobs remaining:"
 vertical_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="UI/HUD/InfoContainer/HBoxContainer"]

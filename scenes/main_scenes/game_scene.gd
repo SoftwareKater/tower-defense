@@ -67,6 +67,8 @@ func initiate_construction_mode(tower_type):
 		construction_type = "machine_gun_t_2"
 	elif tower_type == "MissileT1Button":
 		construction_type = "missile_t_1"
+	elif tower_type == "CannonT1Button":
+		construction_type = "cannon_t_1"
 	else:
 		push_error("Cannot find tower type")
 		return
@@ -133,12 +135,14 @@ func verify_and_construct():
 func start_next_wave():
 	current_wave += 1
 	var wave_data = retrieve_wave_data()
+	remaining_mobs = len(wave_data)
+	get_node("UI").update_wave_counter(current_wave)
+	get_node("UI").update_remaining_mobs(remaining_mobs)	
 	await get_tree().create_timer(2).timeout  ## padding between waves
 	spawn_mobs(wave_data)
 	
 func retrieve_wave_data():
-	var wave_data = GameData.wave_data[current_map][current_wave]
-	remaining_mobs = len(wave_data)
+	var wave_data = GameData.wave_data[current_map][current_wave - 1] # array index starts at 0
 	return wave_data
 
 func spawn_mobs(wave_data):

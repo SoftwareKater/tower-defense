@@ -57,6 +57,7 @@ texture = ExtResource("1_f347o")
 texture = ExtResource("2_xuhqp")
 
 [node name="Missile1Sprite" type="Sprite2D" parent="HeadSprite"]
+visible = false
 position = Vector2(16, 10)
 texture = ExtResource("3_uqdub")
 

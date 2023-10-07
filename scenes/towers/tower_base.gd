@@ -24,6 +24,10 @@ func _physics_process(delta):
 	else:
 		target = null
 
+##
+## Target Acquisition
+##
+
 func acquire_target():
 	if target_acquisition_mode == "MAX_PROGRESS":
 		var target_progress_array = []
@@ -35,14 +39,6 @@ func acquire_target():
 	elif target_acquisition_mode == "FIRST":
 		target = possible_targets[0]
 
-func turn():
-	get_node("HeadSprite").look_at(target.position)
-
-
-##
-## Target Acquisition
-##
-
 func _on_range_area_body_entered(body):
 	if not "Projectile" in body.get_name():
 		possible_targets.append(body.get_parent())
@@ -50,18 +46,27 @@ func _on_range_area_body_entered(body):
 func _on_range_area_body_exited(body):
 	possible_targets.erase(body.get_parent())
 
+##
+## turn and fire
+##
+
+func turn():
+	get_node("HeadSprite").look_at(target.position)
+
 func fire():
 	ready_to_fire = false
 	if animation_category == "projectile":
 		fire_projectile()
-		target.on_hit(GameData.tower_data[tower_type]["damage"])
 	elif animation_category == "missile":
 		fire_missile()
+	else:
+		push_error("Unknown animation category. Aborting fire.")
 	await get_tree().create_timer(GameData.tower_data[tower_type]["rate_of_fire"]).timeout
 	ready_to_fire = true
 
 func fire_projectile():
 	get_node("AnimationPlayer").play("fire")
+	target.on_hit(GameData.tower_data[tower_type]["damage"])
 	
 func fire_missile():
 	get_node("AnimationPlayer").play("fire")

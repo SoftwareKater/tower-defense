@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/towers/machine_gun_t_2.gd" id="1_050bq"]
 [ext_resource type="Texture2D" uid="uid://bptoe8smwdnb4" path="res://assets/towers/towerDefense_tile181.png" id="1_tqr1i"]
 [ext_resource type="Texture2D" uid="uid://d5mlmstxm6s5" path="res://assets/towers/towerDefense_tile250.png" id="2_nvbgb"]
-[ext_resource type="Texture2D" uid="uid://b1emn41lpsctb" path="res://assets/effects/towerDefense_tile297.png" id="4_0gr0f"]
+[ext_resource type="Texture2D" uid="uid://b3d5egepcbnml" path="res://assets/effects/shotLarge.png" id="4_xoluk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3hhu0"]
 
@@ -92,17 +92,18 @@ position = Vector2(38, 6)
 
 [node name="MuzzleFlash" type="Sprite2D" parent="HeadSprite/MuzzleBarrel1Marker"]
 visible = false
-position = Vector2(11, 0)
+position = Vector2(8, 0)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_0gr0f")
+texture = ExtResource("4_xoluk")
 
 [node name="MuzzleBarrel2Marker" type="Marker2D" parent="HeadSprite"]
 position = Vector2(38, -6)
 
 [node name="MuzzleFlash" type="Sprite2D" parent="HeadSprite/MuzzleBarrel2Marker"]
-position = Vector2(11, 0)
+visible = false
+position = Vector2(8, 0)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_0gr0f")
+texture = ExtResource("4_xoluk")
 
 [node name="RangeArea" type="Area2D" parent="."]
 

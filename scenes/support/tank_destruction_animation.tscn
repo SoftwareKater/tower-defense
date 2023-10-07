@@ -1,0 +1,38 @@
+[gd_scene load_steps=8 format=3 uid="uid://dc3s6i2umdvw7"]
+
+[ext_resource type="Texture2D" uid="uid://bx3qvc3g0ohyo" path="res://assets/effects/explosionSmoke1.png" id="1_7roe8"]
+[ext_resource type="Texture2D" uid="uid://bk60s1en2qnks" path="res://assets/effects/explosionSmoke2.png" id="2_6snqy"]
+[ext_resource type="Texture2D" uid="uid://d0xlsx1lvalqf" path="res://assets/effects/explosionSmoke3.png" id="3_qvjjp"]
+[ext_resource type="Texture2D" uid="uid://bxga6nlr27dt7" path="res://assets/effects/explosionSmoke4.png" id="4_n6esl"]
+[ext_resource type="Texture2D" uid="uid://8rkb60eg5pu7" path="res://assets/effects/explosionSmoke5.png" id="5_8lput"]
+[ext_resource type="Script" path="res://scenes/support/tank_destruction_animation.gd" id="6_y2d2t"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pycb3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_7roe8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_6snqy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qvjjp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_n6esl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8lput")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="TankDestructionAnimation" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_pycb3")
+frame = 4
+frame_progress = 1.0
+speed_scale = 2.0
+script = ExtResource("6_y2d2t")

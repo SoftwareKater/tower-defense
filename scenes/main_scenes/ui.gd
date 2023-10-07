@@ -2,6 +2,8 @@ extends CanvasLayer
 
 @onready var player_health_bar = get_node("HUD/InfoContainer/HBoxContainer/PlayerHealthBar")
 @onready var player_money_label = get_node("HUD/InfoContainer/HBoxContainer/MoneyLabel")
+@onready var current_wave_label = get_node("HUD/InfoContainer/HBoxContainer/WaveInfo/WaveCounter")
+@onready var remaining_mobs_label = get_node("HUD/InfoContainer/HBoxContainer/WaveInfo/RemainingMobs")
 
 var health_bars_visible = false
 
@@ -50,7 +52,6 @@ func _on_play_pause_button_pressed():
 	if get_tree().is_paused():
 		get_tree().paused = false 
 	elif get_parent().current_wave == 0:
-		get_parent().current_wave += 1
 		get_parent().start_next_wave()
 	else:
 		get_tree().paused = true
@@ -70,3 +71,10 @@ func _on_fast_forward_button_pressed():
 func _input(event):
 	if (Input.is_key_pressed(KEY_ALT)):
 		health_bars_visible = not health_bars_visible
+
+func update_wave_counter(current_wave):
+	current_wave_label.text = "Current Wave: " + str(current_wave)
+
+func update_remaining_mobs(remaining_mobs):
+	remaining_mobs_label.text = "Remaining mobs: " + str(remaining_mobs)
+	
