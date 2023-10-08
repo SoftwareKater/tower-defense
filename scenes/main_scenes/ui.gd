@@ -14,36 +14,47 @@ extends CanvasLayer
 # Sound
 @onready var ui_sound_effects = get_node("/root/SceneHandler/UISoundEffects")
 
+var TOWER_NAME_WHEN_DRAGGED = "DragTower"
+var TOWER_COLOR_HEX_WHEN_DRAGGED = "ad54ff3c"
+var TOWER_PREVIEW_NODE_NAME = "TowerPreview"
+var TOWER_RANGE_INDICATOR_NODE_NAME = "TowerRangeOverlay"
+var ERROR_TEXT_COLOR_HEX = "fb1a2f"
+var STD_TEXT_COLOR_HEX = "ffffff"
 
 var health_bars_visible = false
 var range_indicators_visible = false
 
 func set_tower_preview(tower_type, mouse_position):
 	var drag_tower = load("res://scenes/towers/" + tower_type + ".tscn").instantiate()
-	drag_tower.set_name("DragTower")
-	drag_tower.modulate = Color("ad54ff3c")
+	drag_tower.set_name(TOWER_NAME_WHEN_DRAGGED)
+	drag_tower.modulate = Color(TOWER_COLOR_HEX_WHEN_DRAGGED)
 	
-	var range_texture = Sprite2D.new()
-	range_texture.set_name("TowerRangeOverlay")
-	var scaling = GameData.tower_data[tower_type]["range"] / 600.0
-	range_texture.scale = Vector2(scaling, scaling)
-	var texture = load("res://assets/towers/range_overlay.png")
-	range_texture.texture = texture
-	range_texture.modulate = Color("ad54ff3c")
+	var range_texture = get_range_overlay(tower_type)
 	
 	var control = Control.new()
 	control.add_child(drag_tower, true)
 	control.add_child(range_texture, true)
 	control.set_position(mouse_position)
-	control.set_name("TowerPreview")
+	control.set_name(TOWER_PREVIEW_NODE_NAME)
 	add_child(control, true)
-	move_child(get_node("TowerPreview"), 0)
+	move_child(get_node(TOWER_PREVIEW_NODE_NAME), 0)
+
+func get_range_overlay(tower_type):
+	var range_texture = Sprite2D.new()
+	range_texture.set_name(TOWER_RANGE_INDICATOR_NODE_NAME)
+	var scaling = GameData.tower_data[tower_type]["range"] / 600.0
+	range_texture.scale = Vector2(scaling, scaling)
+	var texture = load("res://assets/towers/range_overlay.png")
+	range_texture.texture = texture
+	range_texture.modulate = Color(TOWER_COLOR_HEX_WHEN_DRAGGED)
+	return range_texture
 	
+
 func update_tower_preview(new_pos, color):
-	get_node("TowerPreview").set_position(new_pos)
-	if get_node("TowerPreview/DragTower").modulate != Color(color):
-		get_node("TowerPreview/DragTower").modulate = Color(color)
-		get_node(("TowerPreview/TowerRangeOverlay")).modulate = Color(color)
+	get_node(TOWER_PREVIEW_NODE_NAME).set_position(new_pos)
+	if get_node(TOWER_PREVIEW_NODE_NAME + "/" + TOWER_NAME_WHEN_DRAGGED).modulate != Color(color):
+		get_node(TOWER_PREVIEW_NODE_NAME + "/" + TOWER_NAME_WHEN_DRAGGED).modulate = Color(color)
+		get_node((TOWER_PREVIEW_NODE_NAME + "/" + TOWER_RANGE_INDICATOR_NODE_NAME)).modulate = Color(color)
 
 func show_game_over(waves_survived, mobs_killed, money_spent, player_money):
 	game_over_waves_survived_value.text = str(waves_survived)
@@ -137,12 +148,12 @@ func destroy_next_wave_countdown_label():
 
 func update_next_wave_countdown_label(sec):
 	if sec <= 3:
-		countdown_next_wave_label.set_modulate(Color("fb1a2f"))
+		countdown_next_wave_label.set_modulate(Color(ERROR_TEXT_COLOR_HEX))
 	else: 
-		countdown_next_wave_label.set_modulate(Color("ffffff"))
+		countdown_next_wave_label.set_modulate(Color(STD_TEXT_COLOR_HEX))
 	countdown_next_wave_label.text = "Next Wave in: " + str(sec)
 
 func show_insufficient_money():
-	player_money_label.set_modulate(Color("fb1a2f"))
+	player_money_label.set_modulate(Color(ERROR_TEXT_COLOR_HEX))
 	await get_tree().create_timer(0.3).timeout
-	player_money_label.set_modulate(Color("ffffff"))
+	player_money_label.set_modulate(Color(STD_TEXT_COLOR_HEX))

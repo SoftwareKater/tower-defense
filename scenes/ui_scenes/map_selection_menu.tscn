@@ -41,37 +41,6 @@ layout_mode = 2
 theme_override_constants/h_separation = 32
 theme_override_constants/v_separation = 32
 
-[node name="Map1" type="VBoxContainer" parent="MarginContainer/FlowContainer"]
-custom_minimum_size = Vector2(512, 512)
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/FlowContainer/Map1"]
-custom_minimum_size = Vector2(480, 256)
-layout_mode = 2
-texture = ExtResource("2_6mbjp")
-expand_mode = 1
-
-[node name="Start" type="TextureButton" parent="MarginContainer/FlowContainer/Map1"]
-custom_minimum_size = Vector2(512, 128)
-layout_mode = 2
-size_flags_horizontal = 4
-texture_normal = ExtResource("4_d6vfk")
-texture_pressed = ExtResource("5_iyd5n")
-stretch_mode = 0
-
-[node name="Label" type="Label" parent="MarginContainer/FlowContainer/Map1/Start"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("6_sn4o0")
-theme_override_font_sizes/font_size = 64
-text = "Start"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="MapDesertA" type="VBoxContainer" parent="MarginContainer/FlowContainer"]
 custom_minimum_size = Vector2(512, 512)
 layout_mode = 2
@@ -91,6 +60,37 @@ texture_pressed = ExtResource("5_iyd5n")
 stretch_mode = 0
 
 [node name="Label" type="Label" parent="MarginContainer/FlowContainer/MapDesertA/Start"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_sn4o0")
+theme_override_font_sizes/font_size = 64
+text = "Start"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Map1" type="VBoxContainer" parent="MarginContainer/FlowContainer"]
+custom_minimum_size = Vector2(512, 512)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/FlowContainer/Map1"]
+custom_minimum_size = Vector2(480, 256)
+layout_mode = 2
+texture = ExtResource("2_6mbjp")
+expand_mode = 1
+
+[node name="Start" type="TextureButton" parent="MarginContainer/FlowContainer/Map1"]
+custom_minimum_size = Vector2(512, 128)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("4_d6vfk")
+texture_pressed = ExtResource("5_iyd5n")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="MarginContainer/FlowContainer/Map1/Start"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
