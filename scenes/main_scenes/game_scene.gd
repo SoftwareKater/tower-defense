@@ -11,11 +11,9 @@ var player_health = GameData.player_init_health
 
 var player_money = GameData.player_init_money
 
-##
-## UI
-##
+var money_spent = 0
 
-var money_label: Label
+var mobs_killed = 0
 
 ##
 ## Construction
@@ -41,8 +39,7 @@ var remaining_mobs = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	money_label = get_node("UI/HUD/InfoContainer/HBoxContainer/MoneyInfo/MoneyLabel")
-	money_label.text = str(player_money)
+	get_node("UI").update_player_money_label(player_money)
 	map_node = get_node((current_map)) # Turn this into var based on selected map
 	for i in get_tree().get_nodes_in_group("ShopButton"):
 		i.connect("pressed", initiate_construction_mode.bind(i.get_name()))
@@ -124,6 +121,7 @@ func verify_and_construct():
 	# TODO: this is not working
 	map_node.get_node("TowerExclusion").set_cell(0, constructed_tile, 5)
 	player_money -= cost
+	money_spent += cost
 	get_node("UI").update_player_money_label(player_money)
 
 ##
@@ -154,19 +152,23 @@ func on_mob_reached_end(damage):
 		on_wave_cleared()
 	player_health -= damage
 	if player_health <= 0:
-		emit_signal("game_over", false)
+		end_game()
 	else:
 		get_node("UI").update_player_health_bar(player_health)
 
 func on_mob_destroyed(reward):
 	remaining_mobs -= 1
+	mobs_killed += 1
+	player_money += reward
 	get_node("UI").update_remaining_mobs(remaining_mobs)
+	get_node("UI").update_player_money_label(player_money)
 	if remaining_mobs == 0:
 		on_wave_cleared()
-	player_money += reward
-	get_node("UI").update_player_money_label(player_money)
 	
 func on_wave_cleared():
+	if current_wave == GameData.wave_data[current_map].size():
+		end_game()
+		return
 	get_node("UI").create_next_wave_countdown_label()
 	for i in range(10, 0, -1):
 		get_node("UI").update_next_wave_countdown_label(i)
@@ -174,4 +176,8 @@ func on_wave_cleared():
 	get_node("UI").destroy_next_wave_countdown_label()
 	start_next_wave()
 	
-		
+func end_game():
+	get_node("UI").show_game_over(current_wave, mobs_killed, money_spent, player_money)
+	await get_tree().create_timer(10).timeout
+	emit_signal("game_over", current_wave)
+	

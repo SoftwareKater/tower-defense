@@ -72,6 +72,15 @@ var wave_data = {
 			{"mob_type": "blue_tank", "path": 1, "timeout": 3},
 			{"mob_type": "blue_tank", "path": 2, "timeout": 3},
 		],
+	],
+	"Map2": [
+		[
+			{"mob_type": "blue_tank", "path": 1, "timeout": 3},
+		],
+		[
+			{"mob_type": "blue_tank", "path": 1, "timeout": 3},
+			{"mob_type": "blue_tank", "path": 2, "timeout": 3},
+		],
 		[
 			{"mob_type": "blue_tank", "path": 2, "timeout": 2},
 			{"mob_type": "blue_tank", "path": 1, "timeout": 2},

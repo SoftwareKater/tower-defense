@@ -236,5 +236,84 @@ nine_patch_stretch = true
 texture_under = ExtResource("13_ottpg")
 texture_progress = SubResource("GradientTexture1D_4b0bd")
 
+[node name="GameOverContainer" type="ColorRect" parent="UI/HUD"]
+process_mode = 4
+visible = false
+self_modulate = Color(0, 0, 0, 0.470588)
+custom_minimum_size = Vector2(768, 512)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -25.0
+offset_right = 20.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/HUD/GameOverContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameOver" type="Label" parent="UI/HUD/GameOverContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("11_7dlhr")
+theme_override_font_sizes/font_size = 100
+text = "Game Over!"
+horizontal_alignment = 1
+
+[node name="GameStats" type="GridContainer" parent="UI/HUD/GameOverContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme = ExtResource("11_7dlhr")
+theme_override_constants/h_separation = 64
+theme_override_constants/v_separation = 32
+columns = 2
+
+[node name="WavesSurvivedKey" type="Label" parent="UI/HUD/GameOverContainer/VBoxContainer/GameStats"]
+layout_mode = 2
+text = "Waves Survived"
+horizontal_alignment = 2
+
+[node name="WavesSurvivedValue" type="Label" parent="UI/HUD/GameOverContainer/VBoxContainer/GameStats"]
+layout_mode = 2
+text = "X"
+
+[node name="MobsKilledKey" type="Label" parent="UI/HUD/GameOverContainer/VBoxContainer/GameStats"]
+layout_mode = 2
+text = "Mobs killed"
+horizontal_alignment = 2
+
+[node name="MobsKilledValue" type="Label" parent="UI/HUD/GameOverContainer/VBoxContainer/GameStats"]
+layout_mode = 2
+text = "X"
+
+[node name="MoneySpentKey" type="Label" parent="UI/HUD/GameOverContainer/VBoxContainer/GameStats"]
+layout_mode = 2
+text = "Money spent"
+horizontal_alignment = 2
+
+[node name="MoneySpentValue" type="Label" parent="UI/HUD/GameOverContainer/VBoxContainer/GameStats"]
+layout_mode = 2
+text = "X"
+
+[node name="XPGainKey" type="Label" parent="UI/HUD/GameOverContainer/VBoxContainer/GameStats"]
+layout_mode = 2
+text = "XP Gain"
+horizontal_alignment = 2
+
+[node name="XPGainValue" type="Label" parent="UI/HUD/GameOverContainer/VBoxContainer/GameStats"]
+layout_mode = 2
+text = "X"
+
 [connection signal="pressed" from="UI/HUD/GameControlsContainer/PlayPauseButton" to="UI" method="_on_play_pause_button_pressed"]
 [connection signal="pressed" from="UI/HUD/GameControlsContainer/FastForwardButton" to="UI" method="_on_fast_forward_button_pressed"]

@@ -5,6 +5,12 @@ extends CanvasLayer
 @onready var current_wave_label = get_node("HUD/InfoContainer/HBoxContainer/WaveInfo/WaveCounter")
 @onready var countdown_next_wave_label = get_node("HUD/InfoContainer/HBoxContainer/NextWaveCountdown/Countdown")
 @onready var remaining_mobs_label = get_node("HUD/InfoContainer/HBoxContainer/WaveInfo/RemainingMobs")
+# Game Over
+@onready var game_over_container = get_node("HUD/GameOverContainer")
+@onready var game_over_waves_survived_value = get_node("HUD/GameOverContainer/VBoxContainer/GameStats/WavesSurvivedValue")
+@onready var game_over_mobs_killed_value = get_node("HUD/GameOverContainer/VBoxContainer/GameStats/MobsKilledValue")
+@onready var game_over_money_spent_value = get_node("HUD/GameOverContainer/VBoxContainer/GameStats/MoneySpentValue")
+@onready var game_over_xp_gain_value = get_node("HUD/GameOverContainer/VBoxContainer/GameStats/XPGainValue")
 
 var health_bars_visible = false
 var range_indicators_visible = false
@@ -36,13 +42,12 @@ func update_tower_preview(new_pos, color):
 		get_node("TowerPreview/DragTower").modulate = Color(color)
 		get_node(("TowerPreview/TowerRangeOverlay")).modulate = Color(color)
 
-
-func update_player_health_bar(player_health):
-	player_health_bar.value = player_health
-
-func update_player_money_label(player_money):
-	player_money_label.text = str(player_money)
-
+func show_game_over(waves_survived, mobs_killed, money_spent, player_money):
+	game_over_waves_survived_value.text = str(waves_survived)
+	game_over_mobs_killed_value.text = str(mobs_killed)
+	game_over_money_spent_value.text = str(money_spent)
+	game_over_xp_gain_value.text = str(player_money * 0.1)
+	game_over_container.visible = true
 ##
 ## Game Control
 ##
@@ -79,6 +84,12 @@ func _input(event):
 ## HUD: Infobar
 ##
 
+func update_player_health_bar(player_health):
+	player_health_bar.value = player_health
+
+func update_player_money_label(player_money):
+	player_money_label.text = str(player_money)
+	
 func update_wave_counter(current_wave):
 	current_wave_label.text = "Current Wave: " + str(current_wave)
 
