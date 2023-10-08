@@ -1,18 +1,21 @@
 extends Node2D
 
-# name of the current map
-var current_map
-# the current map
-@onready var map_node = get_node("Map")
-
 signal game_over(result)
 
+# the current map name and map node 
+# (cannot be exported, because it is loaded on demand after selection by the player)
+var current_map
+@onready var map_node = get_node("Map")
+
+@export var top_info_bar: ColorRect
+
+##
+## Game Stats
+##
+
 var player_health = GameData.player_init_health
-
 var player_money = GameData.player_init_money
-
 var money_spent = 0
-
 var mobs_killed = 0
 
 ##
@@ -41,7 +44,7 @@ var remaining_mobs = 0
 func _ready():
 	if not current_map or not map_node:
 		push_error("Cannot find map!")
-	get_node("UI").update_player_money_label(player_money)
+	top_info_bar.update_player_money_label(player_money)
 	for i in get_tree().get_nodes_in_group("ShopButton"):
 		i.connect("pressed", initiate_construction_mode.bind(i.get_name()))
 
@@ -107,9 +110,8 @@ func verify_and_construct():
 	var cost = GameData.tower_data[construction_type]["cost"]
 	if not player_money >= cost:
 		push_warning("Player money is not sufficient! Aborting construction.")
-		get_node(("UI")).show_insufficient_money()
+		top_info_bar.show_insufficient_money()
 		return
-		# add cash test
 	var new_tower_scene = "res://scenes/towers/" + construction_type + ".tscn"
 	var new_tower = load(new_tower_scene).instantiate()
 	new_tower.set_position(construction_location)
@@ -123,7 +125,7 @@ func verify_and_construct():
 	map_node.get_node("TowerExclusion").set_cell(0, constructed_tile, 5)
 	player_money -= cost
 	money_spent += cost
-	get_node("UI").update_player_money_label(player_money)
+	top_info_bar.update_player_money_label(player_money)
 
 ##
 ## Wave
@@ -133,8 +135,8 @@ func start_next_wave():
 	current_wave += 1
 	var wave_data = GameData.wave_data[current_map][current_wave - 1] # array index starts at 0
 	remaining_mobs = wave_data.size()
-	get_node("UI").update_wave_counter(current_wave)
-	get_node("UI").update_remaining_mobs(remaining_mobs)
+	top_info_bar.update_wave_counter(current_wave)
+	top_info_bar.update_remaining_mobs(remaining_mobs)
 	spawn_mobs(wave_data)
 
 func spawn_mobs(wave_data):
@@ -148,21 +150,21 @@ func spawn_mobs(wave_data):
 
 func on_mob_reached_end(damage):
 	remaining_mobs -= 1
-	get_node("UI").update_remaining_mobs(remaining_mobs)
+	top_info_bar.update_remaining_mobs(remaining_mobs)
 	if remaining_mobs == 0:
 		on_wave_cleared()
 	player_health -= damage
 	if player_health <= 0:
 		end_game()
 	else:
-		get_node("UI").update_player_health_bar(player_health)
+		top_info_bar.update_player_health_bar(player_health)
 
 func on_mob_destroyed(reward):
 	remaining_mobs -= 1
 	mobs_killed += 1
 	player_money += reward
-	get_node("UI").update_remaining_mobs(remaining_mobs)
-	get_node("UI").update_player_money_label(player_money)
+	top_info_bar.update_remaining_mobs(remaining_mobs)
+	top_info_bar.update_player_money_label(player_money)
 	if remaining_mobs == 0:
 		on_wave_cleared()
 	
@@ -170,11 +172,11 @@ func on_wave_cleared():
 	if current_wave == GameData.wave_data[current_map].size():
 		end_game()
 		return
-	get_node("UI").create_next_wave_countdown_label()
+	top_info_bar.create_next_wave_countdown_label()
 	for i in range(10, 0, -1):
-		get_node("UI").update_next_wave_countdown_label(i)
+		top_info_bar.update_next_wave_countdown_label(i)
 		await get_tree().create_timer(1).timeout
-	get_node("UI").destroy_next_wave_countdown_label()
+	top_info_bar.destroy_next_wave_countdown_label()
 	start_next_wave()
 	
 func end_game():

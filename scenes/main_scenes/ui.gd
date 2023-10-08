@@ -1,10 +1,5 @@
 extends CanvasLayer
 
-@onready var player_health_bar = get_node("HUD/InfoContainer/HBoxContainer/HealthInfo/PlayerHealthBar")
-@onready var player_money_label = get_node("HUD/InfoContainer/HBoxContainer/MoneyInfo/MoneyLabel")
-@onready var current_wave_label = get_node("HUD/InfoContainer/HBoxContainer/WaveInfo/WaveCounter")
-@onready var countdown_next_wave_label = get_node("HUD/InfoContainer/HBoxContainer/NextWaveCountdown/Countdown")
-@onready var remaining_mobs_label = get_node("HUD/InfoContainer/HBoxContainer/WaveInfo/RemainingMobs")
 # Game Over
 @onready var game_over_container = get_node("HUD/GameOverContainer")
 @onready var game_over_waves_survived_value = get_node("HUD/GameOverContainer/VBoxContainer/GameStats/WavesSurvivedValue")
@@ -18,8 +13,6 @@ var TOWER_NAME_WHEN_DRAGGED = "DragTower"
 var TOWER_COLOR_HEX_WHEN_DRAGGED = "ad54ff3c"
 var TOWER_PREVIEW_NODE_NAME = "TowerPreview"
 var TOWER_RANGE_INDICATOR_NODE_NAME = "TowerRangeOverlay"
-var ERROR_TEXT_COLOR_HEX = "fb1a2f"
-var STD_TEXT_COLOR_HEX = "ffffff"
 
 var health_bars_visible = false
 var range_indicators_visible = false
@@ -48,7 +41,6 @@ func get_range_overlay(tower_type):
 	range_texture.texture = texture
 	range_texture.modulate = Color(TOWER_COLOR_HEX_WHEN_DRAGGED)
 	return range_texture
-	
 
 func update_tower_preview(new_pos, color):
 	get_node(TOWER_PREVIEW_NODE_NAME).set_position(new_pos)
@@ -62,6 +54,7 @@ func show_game_over(waves_survived, mobs_killed, money_spent, player_money):
 	game_over_money_spent_value.text = str(money_spent)
 	game_over_xp_gain_value.text = str(player_money * 0.1)
 	game_over_container.visible = true
+
 ##
 ## Game Control
 ##
@@ -123,37 +116,3 @@ func _input(event):
 		range_indicators_visible = not range_indicators_visible
 	if (event.is_action_released("td_fast_forward")):
 		_on_fast_forward_button_pressed()
-
-##
-## HUD: Infobar
-##
-
-func update_player_health_bar(player_health):
-	player_health_bar.value = player_health
-
-func update_player_money_label(player_money):
-	player_money_label.text = str(player_money)
-	
-func update_wave_counter(current_wave):
-	current_wave_label.text = "Current Wave: " + str(current_wave)
-
-func update_remaining_mobs(remaining_mobs):
-	remaining_mobs_label.text = "Remaining mobs: " + str(remaining_mobs)
-
-func create_next_wave_countdown_label():
-	countdown_next_wave_label.visible = true
-
-func destroy_next_wave_countdown_label():
-	countdown_next_wave_label.visible = false
-
-func update_next_wave_countdown_label(sec):
-	if sec <= 3:
-		countdown_next_wave_label.set_modulate(Color(ERROR_TEXT_COLOR_HEX))
-	else: 
-		countdown_next_wave_label.set_modulate(Color(STD_TEXT_COLOR_HEX))
-	countdown_next_wave_label.text = "Next Wave in: " + str(sec)
-
-func show_insufficient_money():
-	player_money_label.set_modulate(Color(ERROR_TEXT_COLOR_HEX))
-	await get_tree().create_timer(0.3).timeout
-	player_money_label.set_modulate(Color(STD_TEXT_COLOR_HEX))
