@@ -41,7 +41,7 @@ var remaining_mobs = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	money_label = get_node("UI/HUD/InfoContainer/HBoxContainer/MoneyLabel")
+	money_label = get_node("UI/HUD/InfoContainer/HBoxContainer/MoneyInfo/MoneyLabel")
 	money_label.text = str(player_money)
 	map_node = get_node((current_map)) # Turn this into var based on selected map
 	for i in get_tree().get_nodes_in_group("ShopButton"):
@@ -109,9 +109,7 @@ func verify_and_construct():
 	var cost = GameData.tower_data[construction_type]["cost"]
 	if not player_money >= cost:
 		push_warning("Player money is not sufficient! Aborting construction.")
-		money_label.set_modulate(Color("fb1a2f"))
-		await get_tree().create_timer(0.3).timeout
-		money_label.set_modulate(Color("ffffff"))		
+		get_node(("UI")).show_insufficient_money()
 		return
 		# add cash test
 	var new_tower_scene = "res://scenes/towers/" + construction_type + ".tscn"
@@ -135,25 +133,25 @@ func verify_and_construct():
 func start_next_wave():
 	current_wave += 1
 	var wave_data = GameData.wave_data[current_map][current_wave - 1] # array index starts at 0
-	remaining_mobs = len(wave_data)
+	remaining_mobs = wave_data.size()
 	get_node("UI").update_wave_counter(current_wave)
-	get_node("UI").update_remaining_mobs(remaining_mobs)	
-	await get_tree().create_timer(2).timeout  ## padding between waves
+	get_node("UI").update_remaining_mobs(remaining_mobs)
 	spawn_mobs(wave_data)
 
 func spawn_mobs(wave_data):
-	for i in wave_data:
-		var new_mob = load("res://scenes/mobs/" + i[0] + ".tscn").instantiate()
-		new_mob.mob_type = i[0]
+	for mob_data in wave_data:
+		var new_mob = load("res://scenes/mobs/" + mob_data.mob_type + ".tscn").instantiate()
+		new_mob.mob_type = mob_data.mob_type
 		new_mob.connect("reached_end", on_mob_reached_end)
 		new_mob.connect("destroyed", on_mob_destroyed)
-		map_node.get_node("Path").add_child(new_mob, true)
-		await get_tree().create_timer(i[1]).timeout
+		map_node.get_node("Path" + str(mob_data.path)).add_child(new_mob, true)
+		await get_tree().create_timer(mob_data.timeout).timeout
 
 func on_mob_reached_end(damage):
 	remaining_mobs -= 1
+	get_node("UI").update_remaining_mobs(remaining_mobs)
 	if remaining_mobs == 0:
-		start_next_wave()
+		on_wave_cleared()
 	player_health -= damage
 	if player_health <= 0:
 		emit_signal("game_over", false)
@@ -162,8 +160,18 @@ func on_mob_reached_end(damage):
 
 func on_mob_destroyed(reward):
 	remaining_mobs -= 1
+	get_node("UI").update_remaining_mobs(remaining_mobs)
 	if remaining_mobs == 0:
-		start_next_wave()
+		on_wave_cleared()
 	player_money += reward
 	get_node("UI").update_player_money_label(player_money)
 	
+func on_wave_cleared():
+	get_node("UI").create_next_wave_countdown_label()
+	for i in range(10, 0, -1):
+		get_node("UI").update_next_wave_countdown_label(i)
+		await get_tree().create_timer(1).timeout
+	get_node("UI").destroy_next_wave_countdown_label()
+	start_next_wave()
+	
+		

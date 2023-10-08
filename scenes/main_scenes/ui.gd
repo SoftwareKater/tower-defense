@@ -1,11 +1,13 @@
 extends CanvasLayer
 
-@onready var player_health_bar = get_node("HUD/InfoContainer/HBoxContainer/PlayerHealthBar")
-@onready var player_money_label = get_node("HUD/InfoContainer/HBoxContainer/MoneyLabel")
+@onready var player_health_bar = get_node("HUD/InfoContainer/HBoxContainer/HealthInfo/PlayerHealthBar")
+@onready var player_money_label = get_node("HUD/InfoContainer/HBoxContainer/MoneyInfo/MoneyLabel")
 @onready var current_wave_label = get_node("HUD/InfoContainer/HBoxContainer/WaveInfo/WaveCounter")
+@onready var countdown_next_wave_label = get_node("HUD/InfoContainer/HBoxContainer/NextWaveCountdown/Countdown")
 @onready var remaining_mobs_label = get_node("HUD/InfoContainer/HBoxContainer/WaveInfo/RemainingMobs")
 
 var health_bars_visible = false
+var range_indicators_visible = false
 
 func set_tower_preview(tower_type, mouse_position):
 	var drag_tower = load("res://scenes/towers/" + tower_type + ".tscn").instantiate()
@@ -56,7 +58,6 @@ func _on_play_pause_button_pressed():
 	else:
 		get_tree().paused = true
 
-
 func _on_fast_forward_button_pressed():
 	if get_parent().construction_mode:
 		get_parent().cancel_construction_mode()
@@ -71,10 +72,33 @@ func _on_fast_forward_button_pressed():
 func _input(event):
 	if (Input.is_key_pressed(KEY_ALT)):
 		health_bars_visible = not health_bars_visible
+	if (Input.is_key_pressed(KEY_CTRL)):
+		range_indicators_visible = not range_indicators_visible
+
+##
+## HUD: Infobar
+##
 
 func update_wave_counter(current_wave):
 	current_wave_label.text = "Current Wave: " + str(current_wave)
 
 func update_remaining_mobs(remaining_mobs):
 	remaining_mobs_label.text = "Remaining mobs: " + str(remaining_mobs)
-	
+
+func create_next_wave_countdown_label():
+	countdown_next_wave_label.visible = true
+
+func destroy_next_wave_countdown_label():
+	countdown_next_wave_label.visible = false
+
+func update_next_wave_countdown_label(sec):
+	if sec <= 3:
+		countdown_next_wave_label.set_modulate(Color("fb1a2f"))
+	else: 
+		countdown_next_wave_label.set_modulate(Color("ffffff"))
+	countdown_next_wave_label.text = "Next Wave in: " + str(sec)
+
+func show_insufficient_money():
+	player_money_label.set_modulate(Color("fb1a2f"))
+	await get_tree().create_timer(0.3).timeout
+	player_money_label.set_modulate(Color("ffffff"))

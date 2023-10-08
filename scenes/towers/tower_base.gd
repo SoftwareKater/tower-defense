@@ -9,6 +9,9 @@ var tower_type
 var ready_to_fire = true
 var animation_category
 
+@onready var range_indicator = get_node("RangeArea")
+@onready var ui_node = get_node("/root/SceneHandler/GameScene/UI")
+
 func _ready():
 	if constructed:
 		var collision_shape_radius = 0.5 * GameData.tower_data[tower_type]["range"]
@@ -23,6 +26,11 @@ func _physics_process(delta):
 			fire()
 	else:
 		target = null
+
+func _process(delta):
+	# TODO: make work, move to
+	# 1. on ready + 2. on signal
+	range_indicator.visible = ui_node.range_indicators_visible
 
 ##
 ## Target Acquisition

@@ -39,26 +39,32 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="TowerShopContainer" type="VBoxContainer" parent="UI/HUD"]
-custom_minimum_size = Vector2(128, 512)
+[node name="MarginContainer" type="MarginContainer" parent="UI/HUD"]
+custom_minimum_size = Vector2(128, 528)
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -512.0
+offset_top = -544.0
 offset_right = 128.0
+offset_bottom = -16.0
 grow_vertical = 0
+theme_override_constants/margin_bottom = 16
+
+[node name="TowerShopContainer" type="VBoxContainer" parent="UI/HUD/MarginContainer"]
+custom_minimum_size = Vector2(128, 512)
+layout_mode = 2
 theme_override_constants/separation = 16
 alignment = 2
 
-[node name="MachineGunT1Button" type="TextureButton" parent="UI/HUD/TowerShopContainer" groups=["ShopButton"]]
+[node name="MachineGunT1Button" type="TextureButton" parent="UI/HUD/MarginContainer/TowerShopContainer" groups=["ShopButton"]]
 custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
 size_flags_horizontal = 4
 texture_normal = ExtResource("2_ixghg")
 stretch_mode = 0
 
-[node name="TowerIcon" type="TextureRect" parent="UI/HUD/TowerShopContainer/MachineGunT1Button"]
+[node name="TowerIcon" type="TextureRect" parent="UI/HUD/MarginContainer/TowerShopContainer/MachineGunT1Button"]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 4.0
@@ -66,14 +72,14 @@ offset_right = 68.0
 offset_bottom = 68.0
 texture = ExtResource("3_xx73l")
 
-[node name="MachineGunT2Button" type="TextureButton" parent="UI/HUD/TowerShopContainer" groups=["ShopButton"]]
+[node name="MachineGunT2Button" type="TextureButton" parent="UI/HUD/MarginContainer/TowerShopContainer" groups=["ShopButton"]]
 custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
 size_flags_horizontal = 4
 texture_normal = ExtResource("2_ixghg")
 stretch_mode = 0
 
-[node name="TowerIcon" type="TextureRect" parent="UI/HUD/TowerShopContainer/MachineGunT2Button"]
+[node name="TowerIcon" type="TextureRect" parent="UI/HUD/MarginContainer/TowerShopContainer/MachineGunT2Button"]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 4.0
@@ -81,14 +87,14 @@ offset_right = 68.0
 offset_bottom = 68.0
 texture = ExtResource("4_r4wgg")
 
-[node name="MissileT1Button" type="TextureButton" parent="UI/HUD/TowerShopContainer" groups=["ShopButton"]]
+[node name="MissileT1Button" type="TextureButton" parent="UI/HUD/MarginContainer/TowerShopContainer" groups=["ShopButton"]]
 custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
 size_flags_horizontal = 4
 texture_normal = ExtResource("2_ixghg")
 stretch_mode = 0
 
-[node name="TowerIcon" type="TextureRect" parent="UI/HUD/TowerShopContainer/MissileT1Button"]
+[node name="TowerIcon" type="TextureRect" parent="UI/HUD/MarginContainer/TowerShopContainer/MissileT1Button"]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 4.0
@@ -96,14 +102,14 @@ offset_right = 68.0
 offset_bottom = 68.0
 texture = ExtResource("7_b4mq5")
 
-[node name="CannonT1Button" type="TextureButton" parent="UI/HUD/TowerShopContainer" groups=["ShopButton"]]
+[node name="CannonT1Button" type="TextureButton" parent="UI/HUD/MarginContainer/TowerShopContainer" groups=["ShopButton"]]
 custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
 size_flags_horizontal = 4
 texture_normal = ExtResource("2_ixghg")
 stretch_mode = 0
 
-[node name="TowerIcon" type="TextureRect" parent="UI/HUD/TowerShopContainer/CannonT1Button"]
+[node name="TowerIcon" type="TextureRect" parent="UI/HUD/MarginContainer/TowerShopContainer/CannonT1Button"]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 4.0
@@ -155,12 +161,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 64
 
-[node name="SpacerStart" type="Control" parent="UI/HUD/InfoContainer/HBoxContainer"]
-custom_minimum_size = Vector2(64, 64)
+[node name="MoneyInfo" type="HBoxContainer" parent="UI/HUD/InfoContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="DollarSign" type="Label" parent="UI/HUD/InfoContainer/HBoxContainer"]
+[node name="DollarSign" type="Label" parent="UI/HUD/InfoContainer/HBoxContainer/MoneyInfo"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 theme = ExtResource("11_7dlhr")
@@ -169,7 +175,7 @@ text = "$"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="MoneyLabel" type="Label" parent="UI/HUD/InfoContainer/HBoxContainer"]
+[node name="MoneyLabel" type="Label" parent="UI/HUD/InfoContainer/HBoxContainer/MoneyInfo"]
 custom_minimum_size = Vector2(110, 64)
 layout_mode = 2
 theme = ExtResource("11_7dlhr")
@@ -177,10 +183,6 @@ theme_override_font_sizes/font_size = 30
 text = "99999"
 horizontal_alignment = 2
 vertical_alignment = 1
-
-[node name="SpacerMid1" type="Control" parent="UI/HUD/InfoContainer/HBoxContainer"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
 
 [node name="WaveInfo" type="VBoxContainer" parent="UI/HUD/InfoContainer/HBoxContainer"]
 layout_mode = 2
@@ -201,13 +203,31 @@ theme_override_font_sizes/font_size = 20
 text = "Mobs remaining:"
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="UI/HUD/InfoContainer/HBoxContainer"]
+[node name="NextWaveCountdown" type="VBoxContainer" parent="UI/HUD/InfoContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="Countdown" type="Label" parent="UI/HUD/InfoContainer/HBoxContainer/NextWaveCountdown"]
+visible = false
+custom_minimum_size = Vector2(110, 64)
+layout_mode = 2
+theme = ExtResource("11_7dlhr")
+theme_override_font_sizes/font_size = 30
+text = "Next Wave in: 10"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HealthInfo" type="HBoxContainer" parent="UI/HUD/InfoContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="TextureRect" type="TextureRect" parent="UI/HUD/InfoContainer/HBoxContainer/HealthInfo"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 10
 texture = ExtResource("12_v2g6g")
 
-[node name="PlayerHealthBar" type="TextureProgressBar" parent="UI/HUD/InfoContainer/HBoxContainer"]
+[node name="PlayerHealthBar" type="TextureProgressBar" parent="UI/HUD/InfoContainer/HBoxContainer/HealthInfo"]
 custom_minimum_size = Vector2(400, 30)
 layout_mode = 2
 size_flags_vertical = 4
@@ -215,10 +235,6 @@ value = 100.0
 nine_patch_stretch = true
 texture_under = ExtResource("13_ottpg")
 texture_progress = SubResource("GradientTexture1D_4b0bd")
-
-[node name="SpacerEnd" type="Control" parent="UI/HUD/InfoContainer/HBoxContainer"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
 
 [connection signal="pressed" from="UI/HUD/GameControlsContainer/PlayPauseButton" to="UI" method="_on_play_pause_button_pressed"]
 [connection signal="pressed" from="UI/HUD/GameControlsContainer/FastForwardButton" to="UI" method="_on_fast_forward_button_pressed"]
