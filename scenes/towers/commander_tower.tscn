@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgbvjdhw51q7b"]
+
+[ext_resource type="Script" path="res://scenes/towers/commander_tower.gd" id="1_pxl8v"]
+[ext_resource type="Texture2D" uid="uid://blqptkf3dasp8" path="res://assets/towers/towerDefense_tile246.png" id="1_s61mf"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_krwnr"]
+load_path = "res://.godot/imported/towerDefense_tile181.png-a570b581ae94f05680553150f1302ba7.ctex"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jxk63"]
+
+[node name="CommanderTower" type="Node2D"]
+script = ExtResource("1_pxl8v")
+
+[node name="BaseSprite" type="Sprite2D" parent="."]
+texture = SubResource("CompressedTexture2D_krwnr")
+
+[node name="HeadSprite" type="Sprite2D" parent="."]
+self_modulate = Color(0.65098, 0.65098, 0.65098, 1)
+texture = ExtResource("1_s61mf")
+
+[node name="RangeArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RangeArea"]
+shape = SubResource("CircleShape2D_jxk63")

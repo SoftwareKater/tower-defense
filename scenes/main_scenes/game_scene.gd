@@ -45,8 +45,8 @@ func _ready():
 	if not current_map or not map_node:
 		push_error("Cannot find map!")
 	top_info_bar.update_player_money_label(player_money)
-	for i in get_tree().get_nodes_in_group("ShopButton"):
-		i.connect("pressed", initiate_construction_mode.bind(i.get_name()))
+	for shop_button in get_tree().get_nodes_in_group("ShopButton"):
+		shop_button.connect("pressed", initiate_construction_mode.bind(shop_button.get_name()))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -70,6 +70,10 @@ func initiate_construction_mode(tower_type):
 		construction_type = "missile_t_1"
 	elif tower_type == "CannonT1Button":
 		construction_type = "cannon_t_1"
+	elif tower_type == "CommanderTowerButton":
+		construction_type = "commander_tower"
+	elif tower_type == "BomberAircraftTowerButton":
+		construction_type = "bomber_aircraft_tower"
 	else:
 		push_error("Cannot find tower type")
 		return
@@ -117,6 +121,7 @@ func verify_and_construct():
 	new_tower.set_position(construction_location)
 	new_tower.constructed = true
 	new_tower.tower_type = construction_type
+	new_tower.target_acquisition_mode = Constants.TARGET_ACQUISITION_MODE.MAX_PROGRESS
 	new_tower.animation_category = GameData.tower_data[construction_type]["animation_category"]
 	map_node.get_node("TowerContainer").add_child(new_tower, true)
 	# fill the tile with an invisible structure, to prevent construction of

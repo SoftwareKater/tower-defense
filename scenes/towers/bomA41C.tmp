@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://bhywm2ryhn743"]
+
+[ext_resource type="Texture2D" uid="uid://c0ypf70fg0add" path="res://assets/towers/towerDefense_tile271.png" id="1_eb6kj"]
+[ext_resource type="Script" path="res://scenes/towers/bomber_aircraft_tower.gd" id="1_vcc8k"]
+[ext_resource type="Curve2D" uid="uid://bhn3n43ghtm3w" path="res://resources/paths/bomber_aircraft_tower_path.tres" id="2_886k1"]
+[ext_resource type="Texture2D" uid="uid://cx5ukg2odqokj" path="res://assets/towers/towerDefense_tile294.png" id="2_nn4ln"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ke8gs"]
+load_path = "res://.godot/imported/towerDefense_tile181.png-a570b581ae94f05680553150f1302ba7.ctex"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4fqns"]
+
+[node name="BomberAircraftTower" type="Node2D"]
+script = ExtResource("1_vcc8k")
+
+[node name="BaseSprite" type="Sprite2D" parent="."]
+texture = SubResource("CompressedTexture2D_ke8gs")
+
+[node name="FlightPath" type="Path2D" parent="."]
+scale = Vector2(1.5, 1.5)
+curve = ExtResource("2_886k1")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="FlightPath"]
+position = Vector2(120, 40)
+rotation = 1.5708
+
+[node name="HeadSprite" type="Sprite2D" parent="FlightPath/PathFollow2D"]
+self_modulate = Color(0.65098, 0.65098, 0.65098, 1)
+texture = ExtResource("1_eb6kj")
+
+[node name="FlightPathShadow" type="Path2D" parent="."]
+position = Vector2(64, 64)
+scale = Vector2(1.5, 1.5)
+curve = ExtResource("2_886k1")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="FlightPathShadow"]
+position = Vector2(120, 40)
+rotation = 1.5708
+
+[node name="HeadSprite" type="Sprite2D" parent="FlightPathShadow/PathFollow2D"]
+self_modulate = Color(0.65098, 0.65098, 0.65098, 1)
+texture = ExtResource("2_nn4ln")
+
+[node name="RangeArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RangeArea"]
+shape = SubResource("CircleShape2D_4fqns")

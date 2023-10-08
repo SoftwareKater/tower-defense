@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://copffu8i51p7h"]
+[gd_scene load_steps=21 format=3 uid="uid://copffu8i51p7h"]
 
 [ext_resource type="Script" path="res://scenes/main_scenes/game_scene.gd" id="1_s2vi8"]
 [ext_resource type="Texture2D" uid="uid://cc48g4c63juj5" path="res://assets/ui/buttons/blue_button12.png" id="2_ixghg"]
@@ -7,13 +7,21 @@
 [ext_resource type="Texture2D" uid="uid://d5mlmstxm6s5" path="res://assets/towers/towerDefense_tile250.png" id="4_r4wgg"]
 [ext_resource type="Texture2D" uid="uid://ckxxmst4kloco" path="res://assets/towers/towerDefense_tile251.png" id="7_b4mq5"]
 [ext_resource type="Texture2D" uid="uid://c2cge5hiij8fi" path="res://assets/ui/icons/right.png" id="8_hvvf3"]
+[ext_resource type="Texture2D" uid="uid://blqptkf3dasp8" path="res://assets/towers/towerDefense_tile246.png" id="8_lwkky"]
 [ext_resource type="Texture2D" uid="uid://dfm5ugshid624" path="res://assets/towers/towerDefense_tile292.png" id="8_vwxng"]
 [ext_resource type="Texture2D" uid="uid://be8gvui5k0vsf" path="res://assets/ui/icons/pause.png" id="9_e3gxg"]
+[ext_resource type="Texture2D" uid="uid://c0ypf70fg0add" path="res://assets/towers/towerDefense_tile271.png" id="9_oku3a"]
 [ext_resource type="Texture2D" uid="uid://b3rl5hsfhjkd8" path="res://assets/ui/icons/fastForward.png" id="10_exlsc"]
 [ext_resource type="Theme" uid="uid://c4enhplx1asm0" path="res://resources/themes/font_theme.tres" id="11_7dlhr"]
 [ext_resource type="Script" path="res://scenes/main_scenes/top_info_bar.gd" id="11_osvw5"]
 [ext_resource type="Texture2D" uid="uid://bfu4mfpafyxe5" path="res://assets/ui/icons/home.png" id="12_v2g6g"]
 [ext_resource type="Texture2D" uid="uid://cv1uos1yryohe" path="res://assets/ui/health_bar_texture.png" id="13_ottpg"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_l4v5n"]
+load_path = "res://.godot/imported/blue_button12.png-b6164f7c2c7ae2bd58c3d4e828f2bc74.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_aiiag"]
+load_path = "res://.godot/imported/blue_button12.png-b6164f7c2c7ae2bd58c3d4e828f2bc74.ctex"
 
 [sub_resource type="Gradient" id="Gradient_ik1mj"]
 offsets = PackedFloat32Array(0.222973, 1)
@@ -115,6 +123,37 @@ offset_top = 4.0
 offset_right = 68.0
 offset_bottom = 68.0
 texture = ExtResource("8_vwxng")
+
+[node name="CommanderTowerButton" type="TextureButton" parent="UI/HUD/MarginContainer/TowerShopContainer" groups=["ShopButton"]]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = SubResource("CompressedTexture2D_l4v5n")
+stretch_mode = 0
+
+[node name="TowerIcon" type="TextureRect" parent="UI/HUD/MarginContainer/TowerShopContainer/CommanderTowerButton"]
+self_modulate = Color(0.65098, 0.65098, 0.65098, 1)
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 68.0
+offset_bottom = 68.0
+texture = ExtResource("8_lwkky")
+
+[node name="BomberAircraftTowerButton" type="TextureButton" parent="UI/HUD/MarginContainer/TowerShopContainer" groups=["ShopButton"]]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = SubResource("CompressedTexture2D_aiiag")
+stretch_mode = 0
+
+[node name="TowerIcon" type="TextureRect" parent="UI/HUD/MarginContainer/TowerShopContainer/BomberAircraftTowerButton"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 68.0
+offset_bottom = 68.0
+texture = ExtResource("9_oku3a")
 
 [node name="GameControlsContainer" type="HBoxContainer" parent="UI/HUD"]
 layout_mode = 1

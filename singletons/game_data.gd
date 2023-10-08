@@ -2,39 +2,71 @@ extends Node
 
 var player_init_health = 100
 
-var player_init_money = 100
+var player_init_money = 10000
 
 var tower_data = {
+	"commander_tower": {
+		"description": "Provides boosts to all towers in its range.",
+		"damage": 0,
+		"rate_of_fire": 1,
+		"range": 500,
+		"animation_category": Constants.FIRE_ANIMATION.NONE,
+		"cost": 700,
+		"shoot_sound": "",
+	},
+	"pioneer_tower": {
+		"description": "Sets traps in a small area, that slow tanks rolling over.",
+		"damage": 0,
+		"rate_of_fire": 3,
+		"range": 200,
+		"animation_category": Constants.FIRE_ANIMATION.TRAP,
+		"cost": 700,
+		"trap_slow": 50,
+		"shoot_sound": "",
+	},
+	"bomber_aircraft_tower": {
+		"description": "Circles a small area while throwing bombs. Bombs deal massive damage in a small area",
+		"damage": 200,
+		"rate_of_fire": 1,
+		"range": 0,
+		"animation_category": Constants.FIRE_ANIMATION.BOMB,
+		"cost": 2000,
+		"shoot_sound": "",
+	},
 	"machine_gun_t_1": {
+		"description": "A one-barreld gun tower that has low damange and range, but a medium rate of fire.",
 		"damage": 10,
 		"rate_of_fire": 1,
 		"range": 300,
-		"animation_category": "projectile",
+		"animation_category": Constants.FIRE_ANIMATION.INSTANT,
 		"cost": 20,
 		"shoot_sound": "",
 	},
 	"machine_gun_t_2": {
-		"damage": 10,
+		"description": "A two-barreld gun tower that has medium damange and range, and a good rate of fire.",
+		"damage": 20,
 		"rate_of_fire": 0.5,
 		"range": 400,
-		"animation_category": "projectile",
+		"animation_category": Constants.FIRE_ANIMATION.INSTANT,
 		"cost": 200,
 		"shoot_sound": "",
 	},
 	"missile_t_1": {
+		"description": "Shoots homing missiles to targets in medium range. Deals good damage in an small area around the impact. Missiles follow targets, even if they leave the range of the tower.",
 		"damage": 100,
 		"rate_of_fire": 3,
 		"range": 500,
-		"animation_category": "missile",
+		"animation_category": Constants.FIRE_ANIMATION.MISSILE,
 		"cost": 500,
 		"shoot_sound": "",
 		"reload_time": 1,
 	},
 	"cannon_t_1": {
+		"description": "Shoots heavy weight projectiles that deal massive damage to a single target in a wide range. Has a very slow rate of fire.",
 		"damage": 200,
 		"rate_of_fire": 5,
 		"range": 750,
-		"animation_category": "projectile",
+		"animation_category": Constants.FIRE_ANIMATION.INSTANT,
 		"cost": 1000,
 		"shoot_sound": "",
 	},
