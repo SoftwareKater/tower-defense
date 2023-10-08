@@ -1,7 +1,7 @@
 extends Node2D
 
 # name of the current map
-var current_map = "Map1"
+var current_map
 # the current map
 var map_node: Node
 
@@ -39,8 +39,9 @@ var remaining_mobs = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if not current_map or not map_node:
+		push_error("Cannot find map!")
 	get_node("UI").update_player_money_label(player_money)
-	map_node = get_node((current_map)) # Turn this into var based on selected map
 	for i in get_tree().get_nodes_in_group("ShopButton"):
 		i.connect("pressed", initiate_construction_mode.bind(i.get_name()))
 

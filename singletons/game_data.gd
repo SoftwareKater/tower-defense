@@ -68,16 +68,16 @@ var mob_data = {
 }
 
 var wave_data = {
-	"Map1": [
+	"map_desert_a": [
 		[
 			{"mob_type": "blue_tank", "path": 1, "timeout": 3},
 		],
 		[
 			{"mob_type": "blue_tank", "path": 1, "timeout": 3},
-			{"mob_type": "blue_tank", "path": 2, "timeout": 3},
+			{"mob_type": "blue_tank", "path": 1, "timeout": 3},
 		],
 	],
-	"Map2": [
+	"map_1": [
 		[
 			{"mob_type": "blue_tank", "path": 1, "timeout": 3},
 		],
