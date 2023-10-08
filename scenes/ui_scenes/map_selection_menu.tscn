@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://cncctpwe1yojh"]
+
+[ext_resource type="Texture2D" uid="uid://dprt7f2l7yuis" path="res://assets/ui/art/main_menu_background.png" id="1_it7la"]
+[ext_resource type="Texture2D" uid="uid://c85n622rcw5te" path="res://assets/ui/map_thumbnails/map_1_thumbnail.png" id="2_6mbjp"]
+
+[node name="MapSelectionMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_it7la")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="FlowContainer" type="FlowContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/FlowContainer"]
+custom_minimum_size = Vector2(477, 256)
+layout_mode = 2
+texture = ExtResource("2_6mbjp")
+expand_mode = 1
