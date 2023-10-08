@@ -11,6 +11,7 @@ var tower_data = {
 		"range": 300,
 		"animation_category": "projectile",
 		"cost": 20,
+		"shoot_sound": "",
 	},
 	"machine_gun_t_2": {
 		"damage": 10,
@@ -18,6 +19,7 @@ var tower_data = {
 		"range": 400,
 		"animation_category": "projectile",
 		"cost": 200,
+		"shoot_sound": "",
 	},
 	"missile_t_1": {
 		"damage": 100,
@@ -25,6 +27,7 @@ var tower_data = {
 		"range": 500,
 		"animation_category": "missile",
 		"cost": 500,
+		"shoot_sound": "",
 		"reload_time": 1,
 	},
 	"cannon_t_1": {
@@ -33,6 +36,7 @@ var tower_data = {
 		"range": 750,
 		"animation_category": "projectile",
 		"cost": 1000,
+		"shoot_sound": "",
 	},
 }
 

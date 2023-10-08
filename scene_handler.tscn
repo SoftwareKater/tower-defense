@@ -7,3 +7,5 @@
 script = ExtResource("1_kybgb")
 
 [node name="MainMenu" parent="." instance=ExtResource("2_8pjcc")]
+
+[node name="UISoundEffects" type="AudioStreamPlayer" parent="."]

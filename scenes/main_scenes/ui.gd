@@ -11,6 +11,9 @@ extends CanvasLayer
 @onready var game_over_mobs_killed_value = get_node("HUD/GameOverContainer/VBoxContainer/GameStats/MobsKilledValue")
 @onready var game_over_money_spent_value = get_node("HUD/GameOverContainer/VBoxContainer/GameStats/MoneySpentValue")
 @onready var game_over_xp_gain_value = get_node("HUD/GameOverContainer/VBoxContainer/GameStats/XPGainValue")
+# Sound
+@onready var ui_sound_effects = get_node("/root/SceneHandler/UISoundEffects")
+
 
 var health_bars_visible = false
 var range_indicators_visible = false
@@ -55,30 +58,60 @@ func show_game_over(waves_survived, mobs_killed, money_spent, player_money):
 func _on_play_pause_button_pressed():
 	if get_parent().construction_mode:
 		get_parent().cancel_construction_mode()
-
 	if get_tree().is_paused():
-		get_tree().paused = false 
+		get_tree().paused = false
+		play_play_sound()
 	elif get_parent().current_wave == 0:
 		get_parent().start_next_wave()
+		play_play_sound()
 	else:
 		get_tree().paused = true
+		play_pause_sound()
+
+func play_play_sound():
+	var sfx_file = load("res://assets/sound_effects/maximize_006.ogg")
+	play_sound_file(sfx_file)
+
+func play_pause_sound():
+	var sfx_file = load("res://assets/sound_effects/minimize_006.ogg")
+	play_sound_file(sfx_file)
+
+func play_fast_forward_sound(level):
+	var sfx_file
+	if level == 1:
+		sfx_file = load("res://assets/sound_effects/minimize_005.ogg")
+	else:
+		sfx_file = load("res://assets/sound_effects/maximize_005.ogg")
+	play_sound_file(sfx_file)
+
+func play_sound_file(file):
+	ui_sound_effects.set_stream(file)
+	ui_sound_effects.play()
 
 func _on_fast_forward_button_pressed():
 	if get_parent().construction_mode:
 		get_parent().cancel_construction_mode()
-
+	
 	if Engine.get_time_scale() == 1.0:
+		play_fast_forward_sound(2)
 		Engine.set_time_scale(2.0)
 	elif Engine.get_time_scale() == 2.0:
+		play_fast_forward_sound(3)
 		Engine.set_time_scale(5.0)
 	else:
+		play_fast_forward_sound(1)
 		Engine.set_time_scale(1.0)
 
+# TODO: these keybindings MUST work when game is paused!!!
 func _input(event):
-	if (Input.is_key_pressed(KEY_ALT)):
+	if event.is_action_released("td_play_pause"):
+		_on_play_pause_button_pressed()
+	if (event.is_action_released("td_show_health_bars")):
 		health_bars_visible = not health_bars_visible
-	if (Input.is_key_pressed(KEY_CTRL)):
+	if (event.is_action_released( "td_show_range_indicators")):
 		range_indicators_visible = not range_indicators_visible
+	if (event.is_action_released("td_fast_forward")):
+		_on_fast_forward_button_pressed()
 
 ##
 ## HUD: Infobar
