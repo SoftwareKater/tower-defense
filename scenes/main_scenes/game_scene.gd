@@ -3,7 +3,7 @@ extends Node2D
 # name of the current map
 var current_map
 # the current map
-var map_node: Node
+@onready var map_node = get_node("Map")
 
 signal game_over(result)
 

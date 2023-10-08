@@ -103,4 +103,64 @@ text = "Start"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="MapDesertA2" type="VBoxContainer" parent="MarginContainer/FlowContainer"]
+custom_minimum_size = Vector2(512, 512)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/FlowContainer/MapDesertA2"]
+custom_minimum_size = Vector2(480, 256)
+layout_mode = 2
+texture = ExtResource("4_lycgc")
+expand_mode = 1
+
+[node name="MapDesertA3" type="VBoxContainer" parent="MarginContainer/FlowContainer"]
+custom_minimum_size = Vector2(512, 512)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/FlowContainer/MapDesertA3"]
+custom_minimum_size = Vector2(480, 256)
+layout_mode = 2
+texture = ExtResource("4_lycgc")
+expand_mode = 1
+
+[node name="MapDesertA4" type="VBoxContainer" parent="MarginContainer/FlowContainer"]
+custom_minimum_size = Vector2(512, 512)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/FlowContainer/MapDesertA4"]
+custom_minimum_size = Vector2(480, 256)
+layout_mode = 2
+texture = ExtResource("4_lycgc")
+expand_mode = 1
+
+[node name="MapDesertA5" type="VBoxContainer" parent="MarginContainer/FlowContainer"]
+custom_minimum_size = Vector2(512, 512)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/FlowContainer/MapDesertA5"]
+custom_minimum_size = Vector2(480, 256)
+layout_mode = 2
+texture = ExtResource("4_lycgc")
+expand_mode = 1
+
+[node name="MapDesertA6" type="VBoxContainer" parent="MarginContainer/FlowContainer"]
+custom_minimum_size = Vector2(512, 512)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/FlowContainer/MapDesertA6"]
+custom_minimum_size = Vector2(480, 256)
+layout_mode = 2
+texture = ExtResource("4_lycgc")
+expand_mode = 1
+
+[node name="MapDesertA7" type="VBoxContainer" parent="MarginContainer/FlowContainer"]
+custom_minimum_size = Vector2(512, 512)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/FlowContainer/MapDesertA7"]
+custom_minimum_size = Vector2(480, 256)
+layout_mode = 2
+texture = ExtResource("4_lycgc")
+expand_mode = 1
+
 [connection signal="gui_input" from="MarginContainer/FlowContainer/Map1" to="." method="_on_map_1_gui_input"]
